@@ -20,7 +20,7 @@
 
 <p align="center">
   <em>
-    Explore dishes in interactive 3D and preview them in your own space.
+    Explore restaurant dishes through an interactive digital menu, 3D models, and Augmented Reality.
   </em>
 </p>
 
@@ -28,85 +28,154 @@
 
 ## ✨ What is Zaiqa?
 
-Zaiqa transforms the traditional restaurant menu into an
-interactive 3D and AR experience.
+**Zaiqa** transforms the traditional restaurant menu into an interactive **3D and AR digital dining experience**.
 
-Customers scan a QR code at their table and instantly access
-the live digital menu without installing an application.
+Customers simply scan a QR code at their table and instantly access the restaurant's live menu without installing a mobile application.
 
+The menu retrieves its content dynamically from a MySQL database, while supported dishes can be explored through interactive 3D models and Augmented Reality.
 
-## 🚀 Key Features
+### The experience
+
+```text
+QR Code
+   ↓
+Live Digital Menu
+   ↓
+Browse Categories & Dishes
+   ↓
+Explore Interactive 3D
+   ↓
+View Dish in Your Space
+```
+
+---
+
+# 📱 Customer Experience
+
+## 01 — Scan
+
+<p align="center">
+  <img src="docs/screenshots/qr-menu.jpeg" width="70%">
+</p>
+
+Customers scan the QR code available at the restaurant table.
+
+**No application installation required.**
+
+---
+
+## 02 — Browse
+
+<p align="center">
+  <img src="docs/screenshots/menu.png" width="90%">
+</p>
+
+Customers can browse:
+
+- Categories
+- Dishes
+- Prices
+- Descriptions
+- Images
+- Available 3D models
+- Available AR models
+
+The menu is dynamically loaded from the backend.
+
+---
+
+## 03 — Explore in 3D
 
 <table>
 <tr>
 <td width="50%">
 
-### 🧊 Interactive 3D
-
 <p align="center">
-<img src="docs/screenshots/3d-viewer.jpeg" width="100%">
+  <img src="docs/screenshots/3d-viewer.jpeg" width="100%">
 </p>
 
-Rotate, zoom and inspect dishes directly in the browser.
+### 🧊 Interactive 3D
+
+Customers can:
+
+- Rotate dishes
+- Zoom in and out
+- Inspect presentation
+- View dishes from different angles
+- Interact with models directly in the browser
 
 </td>
 
 <td width="50%">
 
+<p align="center">
+  <img src="docs/screenshots/ar-preview.jpeg" width="100%">
+</p>
+
 ### 📱 Augmented Reality
 
-<p align="center">
-<img src="docs/screenshots/ar-preview.jpeg" width="100%">
-</p>
-
-<p align="center">
-<img src="docs/screenshots/ar-preview2.jpeg" width="100%">
-</p>
-
-Place supported dishes in your real environment.
+Supported mobile devices can launch an AR experience and preview the dish in the customer's physical environment.
 
 </td>
 </tr>
 </table>
 
+---
 
-## 📱 Customer Experience
-
-### 01 — Scan
-
-<p align="center">
-<img src="docs/screenshots/qr-menu.jpeg" width="70%">
-</p>
-
-Scan the QR code at the restaurant table.
-
-### 02 — Browse
+## 04 — View in Your Space
 
 <p align="center">
-<img src="docs/screenshots/menu.png" width="90%">
+  <img src="docs/screenshots/ar-preview2.jpeg" width="75%">
 </p>
 
-Browse categories, dishes, prices and descriptions.
+On supported devices, customers can select:
 
+> **View in your space**
 
-### 03 — View in Your Space
+The dish can then be previewed on a real table or another physical surface.
+
+### Android
+
+Supports:
+
+- `.glb`
+- WebXR
+- Scene Viewer
+
+### iOS
+
+Can optionally use:
+
+- `.usdz`
+- Apple Quick Look
+
+AR availability depends on the device, browser, model format, and deployment environment.
+
+---
+
+# 🔐 Restaurant Admin Dashboard
+
+Zaiqa is not only a customer-facing menu.
+
+It also includes a dedicated administration system for restaurant staff.
 
 <p align="center">
-<img src="docs/screenshots/ar-preview.png" width="70%">
+  <img src="docs/screenshots/admin-login.png" width="90%">
 </p>
 
-On supported devices, preview the dish in your physical environment.
+### Secure staff login
 
-## 🔐 Restaurant Admin Dashboard
+The administration area uses a separate login system that is not exposed through the public customer menu.
 
-Zaiqa includes a dedicated administration system for restaurant staff.
-<p align="center">
-  <img src="docs/screenshots/admin-login.png" width="95%">
-</p>
+---
 
 <p align="center">
-  <img src="docs/screenshots/admin-dashboard.png" width="95%">
+  <img src="docs/screenshots/admin-dashboard.png" width="90%">
 </p>
+
+### Dashboard
+
+Restaurant staff can manage the restaurant's menu through the administration interface.
 
 ### Staff can manage
 
@@ -115,147 +184,36 @@ Zaiqa includes a dedicated administration system for restaurant staff.
 - Prices
 - Descriptions
 - Images
-- 3D models
-- AR models
-- Staff accounts
-
-<p align="center">
-  <img src="docs/screenshots/dish-management.png" width="95%">
-</p>
-
-Instead of relying only on traditional food photographs, Zaiqa allows customers to:
-
-- Scan a **QR code** at their table
-- Browse the restaurant's live digital menu
-- Explore dishes using **interactive 3D models**
-- Rotate and zoom dishes directly in the browser
-- Place supported dishes on their real table using **Augmented Reality (AR)**
-- View accurate pricing, descriptions and categories
-
-No mobile application is required.
-
-The system is designed to help customers better understand **portion size, plating, presentation and appearance** before ordering.
-
----
-
-## ✨ Key Features
-
-### 🧊 Interactive 3D Food Models
-
-Dishes with available `.glb` models can be viewed interactively directly from the browser.
-
-Customers can:
-
-- Rotate the dish
-- Zoom in and out
-- Inspect the presentation from different angles
-- Interact with the model on mobile and desktop
-
-If a dish does not have a 3D model yet, Zaiqa displays a clear **"3D Coming Soon"** state instead of breaking the user experience.
-
----
-
-### 📱 Augmented Reality Preview
-
-Supported mobile devices can display dishes directly inside the customer's physical environment.
-
-Customers can select:
-
-> **View in your space**
-
-and preview the dish on their table using the device camera.
-
-#### Android
-
-Uses:
-
-- `.glb`
-- WebXR / Scene Viewer
-
-#### iOS
-
-Can optionally use:
-
-- `.usdz`
-- Apple's Quick Look
-
-This allows customers to understand the approximate presentation and scale of a dish before ordering.
-
----
-
-### 🗄️ Live Database-Driven Menu
-
-The menu is not hard-coded into the frontend.
-
-Restaurant data is stored in **MySQL**, including:
-
-- Categories
-- Dish names
-- Descriptions
-- Prices
-- Images
 - 3D model paths
 - AR model paths
-
-The customer-facing menu retrieves the latest information from the backend whenever it loads.
-
-This means restaurant staff can update the menu without modifying frontend code.
+- Staff accounts
 
 ---
 
-### 🔐 Secure Admin Dashboard
+<p align="center">
+  <img src="docs/screenshots/dish-management.png" width="90%">
+</p>
 
-Zaiqa includes a dedicated administration system for restaurant staff.
+### Dynamic menu management
 
-Administrators can:
-
-- Add categories
-- Edit categories
-- Delete categories
-- Add dishes
-- Edit dishes
-- Delete dishes
-- Manage dish prices
-- Manage descriptions
-- Manage images
-- Manage 3D model paths
-- Manage AR model paths
-- Manage staff accounts
-
-The administration area uses a **separate login page** that is not exposed through the public customer menu.
-
-Passwords are stored using secure password hashing rather than plain text.
+Changes made by staff are stored in MySQL and become available to the customer-facing menu without requiring frontend code changes.
 
 ---
 
-### 📱 Responsive Design
+# 🚀 Key Features
 
-The application is designed primarily around the QR-code dining experience.
-
-It supports:
-
-- Mobile phones
-- Tablets
-- Desktop browsers
-
-The interface adapts to different screen sizes so customers can comfortably browse the menu after scanning a table QR code.
-
----
-
-### 🎨 Modern User Experience
-
-The interface includes:
-
-- Smooth scrolling
-- Category navigation
-- Interactive dish cards
-- Dish detail views
-- 3D model interaction
-- AR launch controls
-- Responsive layouts
-- Animated UI elements
-
-The goal is to make the digital menu feel like a modern restaurant product rather than a traditional static webpage.
+| Feature | Description |
+|---|---|
+| 📱 QR Menu | Customers access the menu by scanning a table QR code |
+| 🧊 Interactive 3D | Rotate, zoom, and inspect dishes |
+| 📲 Augmented Reality | Preview supported dishes in the physical environment |
+| 🗄️ Live Database | Menu content is dynamically loaded from MySQL |
+| 🔐 Admin Dashboard | Staff can manage restaurant content |
+| 👥 Staff Accounts | Multiple staff accounts can be managed |
+| 📦 3D Models | `.glb` model support |
+| 🍎 iOS AR | Optional `.usdz` / Quick Look support |
+| 📱 Responsive UI | Designed for mobile, tablet, and desktop |
+| 🎨 Modern Interface | Animated and interactive restaurant experience |
 
 ---
 
@@ -266,46 +224,45 @@ The goal is to make the digital menu feel like a modern restaurant product rathe
                             │
                             │ QR Code
                             ▼
-                 ┌─────────────────────┐
-                 │   Zaiqa Web Menu    │
-                 │ HTML / CSS / JS     │
-                 └──────────┬──────────┘
-                            │
-                            │ HTTP Request
-                            ▼
-                 ┌─────────────────────┐
-                 │     PHP Backend     │
-                 │       + PDO         │
-                 └──────────┬──────────┘
-                            │
-                            │ SQL Queries
-                            ▼
-                 ┌─────────────────────┐
-                 │       MySQL         │
-                 │                     │
-                 │ Categories          │
-                 │ Dishes              │
-                 │ Prices              │
-                 │ Descriptions        │
-                 │ Model Paths         │
-                 │ Staff Accounts      │
-                 └─────────────────────┘
-                            │
-                            │
-                ┌───────────┴───────────┐
-                │                       │
-                ▼                       ▼
-         ┌──────────────┐       ┌──────────────┐
-         │ 3D Viewer    │       │  AR Viewer   │
-         │    .glb      │       │ .glb / .usdz │
-         └──────────────┘       └──────────────┘
+                  ┌─────────────────────┐
+                  │   Zaiqa Web Menu    │
+                  │   HTML / CSS / JS   │
+                  └──────────┬──────────┘
+                             │
+                             │ HTTP Request
+                             ▼
+                  ┌─────────────────────┐
+                  │     PHP Backend     │
+                  │        + PDO        │
+                  └──────────┬──────────┘
+                             │
+                             │ SQL Queries
+                             ▼
+                  ┌─────────────────────┐
+                  │       MySQL         │
+                  │                     │
+                  │ Categories          │
+                  │ Dishes              │
+                  │ Prices              │
+                  │ Descriptions        │
+                  │ Model Paths         │
+                  │ Staff Accounts      │
+                  └──────────┬──────────┘
+                             │
+                  ┌──────────┴──────────┐
+                  │                     │
+                  ▼                     ▼
+           ┌──────────────┐      ┌──────────────┐
+           │ 3D Viewer    │      │  AR Viewer   │
+           │    .glb      │      │ .glb / .usdz │
+           └──────────────┘      └──────────────┘
 ```
 
 ---
 
 # 🔄 How Zaiqa Works
 
-### 1. Restaurant Staff
+## 1. Restaurant Staff
 
 Staff members log into the administration dashboard.
 
@@ -313,41 +270,63 @@ They can create or modify:
 
 ```text
 Category
-   ↓
-Dish
-   ├── Name
-   ├── Description
-   ├── Price
-   ├── Image
-   ├── GLB Model
-   └── USDZ Model
+   │
+   └── Dish
+        ├── Name
+        ├── Description
+        ├── Price
+        ├── Image
+        ├── GLB Model
+        └── USDZ Model
 ```
 
 The information is stored in MySQL.
 
 ---
 
-### 2. Customer Scans QR Code
+## 2. Customer Scans QR Code
 
-A customer scans the QR code located at their restaurant table.
+The customer scans the QR code located at the restaurant table.
 
-The browser opens the Zaiqa menu.
+```text
+QR Code
+   ↓
+Browser
+   ↓
+Zaiqa Menu
+```
 
 No application installation is required.
 
 ---
 
-### 3. Menu Loads From Database
+## 3. Menu Loads From Database
 
 The frontend requests the latest menu information from the PHP backend.
 
-The backend retrieves the data from MySQL and returns the relevant menu information.
+The backend retrieves the relevant data from MySQL.
+
+```text
+Frontend
+   ↓
+PHP Backend
+   ↓
+PDO
+   ↓
+MySQL
+   ↓
+Menu Data
+   ↓
+Frontend
+```
+
+This allows restaurant staff to update menu content without modifying frontend code.
 
 ---
 
-### 4. Customer Explores a Dish
+## 4. Customer Explores a Dish
 
-If a 3D model exists:
+When a dish has a 3D model:
 
 ```text
 Dish
@@ -357,7 +336,7 @@ Dish
 Interactive 3D Viewer
 ```
 
-If a model does not exist:
+When a model is not available:
 
 ```text
 Dish
@@ -367,14 +346,16 @@ No 3D Model
 "3D Coming Soon"
 ```
 
+This prevents missing models from breaking the customer experience.
+
 ---
 
-### 5. Customer Uses AR
+## 5. Customer Uses AR
 
 On supported devices:
 
 ```text
-View in your space
+View in Your Space
         ↓
 Device Camera
         ↓
@@ -383,7 +364,7 @@ AR Environment
 3D Dish Placement
 ```
 
-The customer can visually inspect how the dish could appear in their environment.
+The customer can visually inspect how the dish could appear in their physical environment.
 
 ---
 
@@ -409,44 +390,67 @@ The customer can visually inspect how the dish could appear in their environment
 
 # 🧊 3D & AR Technology
 
-Zaiqa uses Google's **`<model-viewer>`** component to provide browser-based 3D and AR functionality.
+Zaiqa uses Google's **`<model-viewer>`** component for browser-based 3D and AR functionality.
 
 The same web application can provide different experiences depending on the user's device.
 
 ```text
-                    Zaiqa
-                      │
-                      ▼
-               model-viewer
-                      │
-          ┌───────────┴───────────┐
-          │                       │
-          ▼                       ▼
-       Desktop                 Mobile
-          │                       │
-          ▼                       ▼
-    Interactive 3D          Interactive 3D
-                                  │
-                                  ▼
-                                AR
-                         ┌────────┴────────┐
-                         │                 │
-                       Android            iOS
-                         │                 │
-                       .glb              .usdz
-                         │                 │
-                  Scene Viewer        Quick Look
+                         Zaiqa
+                           │
+                           ▼
+                     model-viewer
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+              ▼                         ▼
+          Desktop                    Mobile
+              │                         │
+              ▼                         ▼
+      Interactive 3D             Interactive 3D
+                                        │
+                                        ▼
+                                       AR
+                              ┌─────────┴─────────┐
+                              │                   │
+                           Android              iOS
+                              │                   │
+                            .glb                .usdz
+                              │                   │
+                       Scene Viewer          Quick Look
+```
+
+### Supported model formats
+
+**3D**
+
+```text
+.glb
+```
+
+**Android AR**
+
+```text
+.glb
+WebXR
+Scene Viewer
+```
+
+**iOS AR**
+
+```text
+.usdz
+Quick Look
 ```
 
 ---
 
 # 🗄️ Database
 
-The application uses **MySQL** as the primary relational database.
+Zaiqa uses **MySQL** as its primary relational database.
 
-The database stores dynamic restaurant information rather than embedding menu data directly into frontend code.
+The menu is database-driven rather than hard-coded into the frontend.
 
-Typical entities include:
+### Typical entities
 
 ```text
 Categories
@@ -458,7 +462,7 @@ Staff
     └────── Authentication / Management
 ```
 
-A dish can contain information such as:
+A dish can contain:
 
 ```text
 Dish
@@ -470,7 +474,7 @@ Dish
 ├── Image Path
 ├── GLB Model Path
 ├── USDZ Model Path
-└── Created / Updated information
+└── Created / Updated Information
 ```
 
 This architecture allows restaurant staff to manage the menu without requiring developer intervention.
@@ -489,13 +493,46 @@ Security considerations include:
 - Database-driven access control
 - HTTPS deployment
 
-Passwords are never intended to be stored as plain-text values.
+Passwords are not intended to be stored as plain-text values.
 
 The administration interface is intentionally separated from the public customer menu.
 
+> Production deployments should use secure credentials, HTTPS, proper authorization, and environment-specific configuration.
+
 ---
 
-# 📂 Suggested Project Structure
+# 📱 Responsive Design
+
+Zaiqa is designed around the QR-code restaurant experience.
+
+The interface supports:
+
+- Mobile phones
+- Tablets
+- Desktop browsers
+
+The layout adapts to different screen sizes so customers can comfortably browse the menu after scanning a table QR code.
+
+---
+
+# 🎨 User Experience
+
+The interface includes:
+
+- Smooth scrolling
+- Category navigation
+- Interactive dish cards
+- Dish detail views
+- 3D model interaction
+- AR launch controls
+- Responsive layouts
+- Animated UI elements
+
+The goal is to make the digital menu feel like a modern restaurant product rather than a traditional static webpage.
+
+---
+
+# 📂 Project Structure
 
 ```text
 zaiqa/
@@ -533,6 +570,9 @@ zaiqa/
 ├── database/
 │   └── schema.sql
 │
+├── docs/
+│   └── screenshots/
+│
 └── README.md
 ```
 
@@ -544,10 +584,10 @@ zaiqa/
 
 ## Requirements
 
-For local development you will need:
+For local development:
 
 - PHP 8+
-- MySQL 8+ or compatible MySQL/MariaDB version
+- MySQL 8+ or compatible MySQL/MariaDB
 - Apache or another PHP-compatible web server
 - Modern web browser
 - HTTPS for production AR functionality
@@ -565,7 +605,7 @@ cd zaiqa
 
 ## 2. Configure MySQL
 
-Create a database:
+Create the database:
 
 ```sql
 CREATE DATABASE zaiqa;
@@ -581,7 +621,7 @@ mysql -u YOUR_USERNAME -p zaiqa < database/schema.sql
 
 ## 3. Configure Database Connection
 
-Update the application's database configuration with:
+Configure:
 
 ```text
 Database Host
@@ -622,7 +662,7 @@ For production deployment:
 - Test AR on physical devices
 - Ensure model files are accessible from the deployed domain
 
-Desktop browsers can still use the interactive 3D viewer even when AR is unavailable.
+Desktop browsers can still use the interactive 3D viewer when AR is unavailable.
 
 ---
 
@@ -650,11 +690,11 @@ Traditional menus usually provide:
 
 ```text
 Dish Name
-+
+    +
 Description
-+
+    +
 Price
-+
+    +
 Photo
 ```
 
@@ -662,25 +702,25 @@ Zaiqa adds another dimension:
 
 ```text
 Dish Name
-       +
+    +
 Description
-       +
+    +
 Price
-       +
+    +
 Photo
-       +
+    +
 Interactive 3D
-       +
+    +
 Augmented Reality
 ```
 
-This allows customers to inspect the dish from multiple angles and, on supported devices, preview it within their own physical environment.
+Customers can inspect a dish from multiple angles and, on supported devices, preview it within their own physical environment.
 
 ---
 
 # 📊 Project Highlights
 
-### Database Engineering
+## Database Engineering
 
 - Dynamic MySQL-backed menu
 - Relational data model
@@ -689,7 +729,7 @@ This allows customers to inspect the dish from multiple angles and, on supported
 - Database-driven content
 - Server-side data retrieval
 
-### Backend Engineering
+## Backend Engineering
 
 - PHP backend
 - PDO database access
@@ -697,7 +737,7 @@ This allows customers to inspect the dish from multiple angles and, on supported
 - Administrative CRUD operations
 - Dynamic API/data loading
 
-### Frontend Engineering
+## Frontend Engineering
 
 - Responsive UI
 - JavaScript interactions
@@ -706,7 +746,7 @@ This allows customers to inspect the dish from multiple angles and, on supported
 - 3D model integration
 - AR integration
 
-### 3D / AR
+## 3D / AR
 
 - `.glb` model support
 - `.usdz` model support
@@ -719,7 +759,7 @@ This allows customers to inspect the dish from multiple angles and, on supported
 
 # 🧪 Testing Checklist
 
-Before deploying a restaurant menu, test:
+Before deploying a restaurant menu:
 
 ```text
 [ ] Customer menu loads
@@ -772,7 +812,7 @@ Before deploying a restaurant menu, test:
 
 ## Phase 4 — Mobile Applications
 
-Wrap the existing web application using:
+Explore wrapping the existing web application using:
 
 - Capacitor
 - Android
@@ -782,7 +822,7 @@ The goal is to reuse the existing web codebase while providing native applicatio
 
 ## Phase 5 — Multi-Restaurant Platform
 
-Support:
+Potential architecture:
 
 ```text
 Platform
@@ -798,7 +838,7 @@ Platform
 └── Restaurant C
 ```
 
-This would transform Zaiqa from a single restaurant menu into a multi-tenant restaurant platform.
+This could transform Zaiqa from a single restaurant menu into a multi-tenant restaurant platform.
 
 ## Phase 6 — Advanced Visual Experiences
 
@@ -815,28 +855,27 @@ Future experiments may include:
 
 Experience the deployed version of Zaiqa:
 
-**https://technologicinnovations.ltd/zaiqa/**
+**[Open Zaiqa Live Demo](https://technologicinnovations.ltd/zaiqa/)**
 
 ---
 
-# 📸 Screenshots
+# 📸 Project Screenshots
 
-Add screenshots of the application here:
+The primary screenshots are intentionally displayed throughout this README so visitors can see the product while reading about its functionality.
+
+Screenshot assets are maintained in:
 
 ```text
 docs/screenshots/
-├── home.png
+├── hero.png
+├── qr-menu.jpeg
 ├── menu.png
-├── dish-details.png
-├── 3d-viewer.png
-├── ar-preview.png
-└── admin-dashboard.png
-```
-
-Example:
-
-```markdown
-![Zaiqa Menu](docs/screenshots/menu.png)
+├── 3d-viewer.jpeg
+├── ar-preview.jpeg
+├── ar-preview2.jpeg
+├── admin-login.png
+├── admin-dashboard.png
+└── dish-management.png
 ```
 
 ---
@@ -882,9 +921,9 @@ Augmented Reality
 
 # 🤝 Contributing
 
-Contributions, ideas and improvements are welcome.
+Contributions, ideas, and improvements are welcome.
 
-A typical contribution workflow:
+Typical workflow:
 
 ```bash
 git clone <repository>
@@ -899,7 +938,7 @@ Make your changes, test them, and submit a pull request.
 
 Add the license appropriate for your project.
 
-If this is a proprietary client/business project, do not add an open-source license without confirming that the project owner permits it.
+If this is a proprietary client or business project, do not add an open-source license without confirming that the project owner permits it.
 
 ---
 
@@ -915,12 +954,10 @@ Interested in building intelligent systems that combine:
 
 ---
 
-## ⭐ Support
-
-If you find this project interesting, consider giving the repository a ⭐ on GitHub.
-
----
+<p align="center">
+  <strong>⭐ If you find Zaiqa interesting, consider giving the repository a star.</strong>
+</p>
 
 <p align="center">
-  Built with ❤️ using PHP, MySQL, JavaScript, 3D & Augmented Reality
+  Built with PHP, MySQL, JavaScript, 3D & Augmented Reality
 </p>
