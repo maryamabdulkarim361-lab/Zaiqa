@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zaiqa — Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#241512; --surface:#2e1c17; --surface-2:#38241d; --hairline:#4a2f24;
+    --text:#f7ead9; --muted:#c2a48f; --brass:#e2a13d; --brass-dim:#a67530;
+    --olive:#3f7d68; --olive-dim:#2c5b4b; --rust:#c25a3c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:radial-gradient(ellipse at top, rgba(226,161,61,0.06), transparent 55%), var(--bg);
+    color:var(--text); font-family:'Work Sans', sans-serif; padding-bottom:80px;
+  }
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(36,21,18,0.94); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline); padding:20px 24px;
+  }
+  .header-inner{ max-width:840px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  .eyebrow{ font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--brass); font-weight:600; margin-bottom:4px; }
+  h1{ font-family:'Fraunces', serif; font-weight:600; font-size:28px; }
+  a.back{ font-size:12.5px; color:var(--muted); text-decoration:none; }
+  a.back:hover{ color:var(--text); }
+
+  main{ max-width:840px; margin:0 auto; padding:28px 24px; }
+
+  .banner{
+    background:var(--surface); border:1px solid var(--hairline); border-left:3px solid var(--brass);
+    border-radius:10px; padding:14px 16px; font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:28px;
+  }
+  .banner b{ color:var(--text); }
+
+  .cat-block{ margin-bottom:32px; }
+  .cat-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .cat-head h2{ font-family:'Fraunces', serif; font-size:19px; font-weight:600; }
+  .cat-head .cat-actions{ display:flex; gap:8px; }
+
+  .item-row{
+    background:var(--surface); border:1px solid var(--hairline); border-radius:12px;
+    padding:14px 16px; margin-bottom:10px;
+  }
+  .item-top{ display:flex; align-items:center; gap:10px; cursor:pointer; }
+  .item-top .glyph{ font-size:20px; width:28px; text-align:center; }
+  .item-top .name{ font-weight:600; flex:1; }
+  .item-top .price{ color:var(--brass); font-weight:600; font-size:13.5px; }
+  .item-top .chev{ color:var(--muted); font-size:12px; transition:transform .15s ease; }
+  .item-row.open .chev{ transform:rotate(90deg); }
+  .live-dot{ width:7px; height:7px; border-radius:50%; background:var(--olive); flex:none; }
+  .live-dot.off{ background:var(--hairline); }
+
+  .item-form{ display:none; margin-top:14px; padding-top:14px; border-top:1px solid var(--hairline); }
+  .item-row.open .item-form{ display:block; }
+
+  .field{ margin-bottom:12px; }
+  .field label{ display:block; font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:5px; }
+  .field input, .field textarea{
+    width:100%; background:var(--surface-2); border:1px solid var(--hairline); color:var(--text);
+    border-radius:8px; padding:9px 11px; font-family:inherit; font-size:13.5px;
+  }
+  .field textarea{ resize:vertical; min-height:56px; }
+  .field .hint{ font-size:11px; color:var(--muted); margin-top:4px; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+  .row-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:6px; }
+
+  button{ font-family:inherit; cursor:pointer; border:none; }
+  .btn{
+    font-size:12.5px; font-weight:600; padding:8px 14px; border-radius:8px;
+    background:var(--surface-2); color:var(--text); border:1px solid var(--hairline);
+  }
+  .btn:hover{ border-color:var(--brass-dim); }
+  .btn.primary{ background:var(--brass); color:#241108; border-color:var(--brass); }
+  .btn.danger{ background:transparent; color:var(--rust); border:1px solid var(--rust); }
+  .btn.ghost{ background:transparent; }
+  .btn.small{ padding:6px 11px; font-size:11.5px; }
+
+  .add-cat{
+    width:100%; padding:14px; border:1px dashed var(--hairline); border-radius:12px;
+    background:transparent; color:var(--muted); font-size:13px; font-weight:600;
+  }
+  .add-cat:hover{ border-color:var(--brass-dim); color:var(--text); }
+
+  .dl-bar{
+    position:fixed; bottom:0; left:0; right:0; z-index:30;
+    background:rgba(36,21,18,0.96); backdrop-filter:blur(10px); border-top:1px solid var(--hairline);
+    padding:14px 24px; display:flex; justify-content:center; gap:12px; align-items:center;
+  }
+  .dl-bar span{ font-size:12px; color:var(--muted); }
+
+  input[type=text].cat-name-input{
+    background:transparent; border:none; color:var(--text); font-family:'Fraunces', serif;
+    font-size:19px; font-weight:600; border-bottom:1px solid transparent; padding:0;
+  }
+  input[type=text].cat-name-input:focus{ outline:none; border-bottom:1px solid var(--brass-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="eyebrow">Zaiqa · Staff Only</div>
+      <h1>Menu Admin Panel</h1>
+    </div>
+    <a class="back" href="index.html">← Back to customer menu</a>
+  </div>
+</header>
+
+<main>
+  <div class="banner">
+    <b>How this works —</b> is prototype ka abhi koi backend/database nahi hai, isliye edits sirf is browser tab ki memory mein hote hain aur page refresh/close karne par khatam ho jate hain. Jab aap kaam mukammal kar lein, neeche diye <b>"Download updated menu-data.js"</b> button se file download karein aur project folder mein purani <code>menu-data.js</code> ko replace kar dein — customer menu automatically update ho jayega.
+  </div>
+
+  <div id="categoriesRoot"></div>
+
+  <button class="add-cat" id="addCatBtn">+ Add new category</button>
+</main>
+
+<div class="dl-bar">
+  <span id="statusText">No unsaved changes downloaded yet</span>
+  <button class="btn primary" id="downloadBtn">⬇ Download updated menu-data.js</button>
+</div>
+
+<script src="menu-data.js"></script>
+<script>
+// Work on a deep copy so we never mutate the loaded MENU by reference in weird ways
+let state = JSON.parse(JSON.stringify(MENU));
+let openKey = null; // "catIndex-itemIndex" of currently expanded item
+
+const root = document.getElementById('categoriesRoot');
+
+function blankItem(){
+  return { name:"New Dish", price:"Rs. 0", glb:null, usdz:null, glyph:"🍽️", desc:"Describe the dish here." };
+}
+
+function render(){
+  root.innerHTML = '';
+  state.forEach((cat, ci) => {
+    const block = document.createElement('div');
+    block.className = 'cat-block';
+    block.innerHTML = `
+      <div class="cat-head">
+        <input type="text" class="cat-name-input" data-ci="${ci}" value="${escapeAttr(cat.category)}" />
+        <div class="cat-actions">
+          <button class="btn small" data-add-item="${ci}">+ Add item</button>
+          <button class="btn small danger" data-del-cat="${ci}">Delete category</button>
+        </div>
+      </div>
+      <div class="items-wrap" id="items-${ci}"></div>
+    `;
+    root.appendChild(block);
+
+    const itemsWrap = block.querySelector(`#items-${ci}`);
+    cat.items.forEach((item, ii) => {
+      const key = ci + '-' + ii;
+      const isLive = !!item.glb;
+      const row = document.createElement('div');
+      row.className = 'item-row' + (openKey === key ? ' open' : '');
+      row.innerHTML = `
+        <div class="item-top" data-toggle="${key}">
+          <span class="live-dot ${isLive ? '' : 'off'}"></span>
+          <span class="glyph">${item.glyph || '🍽️'}</span>
+          <span class="name">${item.name}</span>
+          <span class="price">${item.price}</span>
+          <span class="chev">▶</span>
+        </div>
+        <div class="item-form">
+          <div class="row2">
+            <div class="field">
+              <label>Dish name</label>
+              <input type="text" data-field="name" data-ci="${ci}" data-ii="${ii}" value="${escapeAttr(item.name)}" />
+            </div>
+            <div class="field">
+              <label>Price</label>
+              <input type="text" data-field="price" data-ci="${ci}" data-ii="${ii}" value="${escapeAttr(item.price)}" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea data-field="desc" data-ci="${ci}" data-ii="${ii}">${escapeHtml(item.desc || '')}</textarea>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label>Emoji icon (shown until a 3D model is added)</label>
+              <input type="text" data-field="glyph" data-ci="${ci}" data-ii="${ii}" value="${escapeAttr(item.glyph || '')}" />
+            </div>
+            <div class="field">
+              <label>3D model file (leave blank for "coming soon")</label>
+              <input type="text" placeholder="models/your-file.glb" data-field="glb" data-ci="${ci}" data-ii="${ii}" value="${escapeAttr(item.glb || '')}" />
+              <div class="hint">Path to a .glb file in your models/ folder — see the note in menu-data.js.</div>
+            </div>
+          </div>
+          <div class="field">
+            <label>iPhone AR file (optional .usdz — improves AR on iPhone)</label>
+            <input type="text" placeholder="models/your-file.usdz" data-field="usdz" data-ci="${ci}" data-ii="${ii}" value="${escapeAttr(item.usdz || '')}" />
+            <div class="hint">Leave blank if you don't have one — the .glb above will still work everywhere.</div>
+          </div>
+          <div class="row-actions">
+            <button class="btn danger small" data-del-item="${key}">Delete this dish</button>
+          </div>
+        </div>
+      `;
+      itemsWrap.appendChild(row);
+    });
+  });
+}
+
+function escapeHtml(s){ return (s||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function escapeAttr(s){ return escapeHtml(s).replace(/"/g,'&quot;'); }
+
+root.addEventListener('click', (e) => {
+  const toggle = e.target.closest('[data-toggle]');
+  if(toggle){
+    const key = toggle.dataset.toggle;
+    openKey = (openKey === key) ? null : key;
+    render();
+    return;
+  }
+  const addItem = e.target.closest('[data-add-item]');
+  if(addItem){
+    const ci = +addItem.dataset.addItem;
+    state[ci].items.push(blankItem());
+    openKey = ci + '-' + (state[ci].items.length - 1);
+    render();
+    return;
+  }
+  const delCat = e.target.closest('[data-del-cat]');
+  if(delCat){
+    const ci = +delCat.dataset.delCat;
+    if(confirm(`Delete the whole "${state[ci].category}" category and all its items?`)){
+      state.splice(ci, 1);
+      render();
+    }
+    return;
+  }
+  const delItem = e.target.closest('[data-del-item]');
+  if(delItem){
+    const [ci, ii] = delItem.dataset.delItem.split('-').map(Number);
+    state[ci].items.splice(ii, 1);
+    openKey = null;
+    render();
+    return;
+  }
+});
+
+root.addEventListener('input', (e) => {
+  const t = e.target;
+  if(t.classList.contains('cat-name-input')){
+    state[+t.dataset.ci].category = t.value;
+    return;
+  }
+  if(t.dataset.field){
+    const ci = +t.dataset.ci, ii = +t.dataset.ii, field = t.dataset.field;
+    let val = t.value;
+    if(field === 'glb' || field === 'usdz') val = val.trim() === '' ? null : val.trim();
+    state[ci].items[ii][field] = val;
+  }
+});
+
+document.getElementById('addCatBtn').onclick = () => {
+  state.push({ category:"New Category", items:[blankItem()] });
+  render();
+};
+
+document.getElementById('downloadBtn').onclick = () => {
+  const js = generateMenuDataJS(state);
+  const blob = new Blob([js], { type:'text/javascript' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'menu-data.js';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  document.getElementById('statusText').textContent = 'Downloaded — replace menu-data.js in your project folder';
+};
+
+function jsStr(v){
+  if(v === null || v === undefined) return 'null';
+  return JSON.stringify(v);
+}
+
+function generateMenuDataJS(data){
+  let out = `// =============================================================================
+// ZAIQA — SHARED MENU DATA
+// Generated by the admin panel on ${new Date().toLocaleString()}.
+// Replace the old menu-data.js in your project folder with this file.
+// =============================================================================
+
+const AVOCADO_GLB = "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF-Binary/Avocado.glb";
+
+const MENU = [
+`;
+  data.forEach(cat => {
+    out += `  {\n    category: ${jsStr(cat.category)},\n    items: [\n`;
+    cat.items.forEach(item => {
+      const glbVal = item.glb === AVOCADO_GLB ? 'AVOCADO_GLB' : jsStr(item.glb);
+      const usdzPart = item.usdz ? `, usdz:${jsStr(item.usdz)}` : '';
+      out += `      { name:${jsStr(item.name)}, price:${jsStr(item.price)}, glb:${glbVal}${usdzPart}, glyph:${jsStr(item.glyph)},\n        desc:${jsStr(item.desc)} },\n`;
+    });
+    out += `    ]\n  },\n`;
+  });
+  out += `];\n`;
+  return out;
+}
+
+render();
+</script>
+</body>
+</html>

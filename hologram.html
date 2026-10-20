@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Zaiqa — Hologram Pyramid Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#241512; --surface:#2e1c17; --hairline:#4a2f24;
+    --text:#f7ead9; --muted:#c2a48f; --brass:#e2a13d; --olive:#3f7d68; --rust:#c25a3c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%; overscroll-behavior:none;}
+  body{
+    background:var(--bg); color:var(--text); font-family:'Work Sans', sans-serif;
+    display:flex; flex-direction:column; height:100%;
+  }
+
+  /* ---------- Setup panel (hidden once hologram is running) ---------- */
+  #setup{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:28px; gap:20px; text-align:center;
+  }
+  .eyebrow{ font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brass); font-weight:600; }
+  h1{ font-family:'Fraunces', serif; font-weight:600; font-size:clamp(24px,6vw,30px); }
+  #setup p.sub{ color:var(--muted); font-size:13.5px; max-width:380px; line-height:1.6; }
+
+  .picker{
+    border:1.5px dashed var(--hairline); border-radius:14px; padding:26px 22px;
+    width:100%; max-width:360px; cursor:pointer; transition:border-color .18s ease;
+  }
+  .picker:hover, .picker.drag{ border-color:var(--brass); }
+  .picker input{ display:none; }
+  .picker .icon{ font-size:30px; }
+  .picker .label{ font-weight:600; font-size:14px; margin-top:8px; }
+  .picker .hint{ color:var(--muted); font-size:11.5px; margin-top:4px; }
+
+  .divider{ display:flex; align-items:center; gap:10px; width:100%; max-width:360px; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; }
+  .divider::before, .divider::after{ content:''; flex:1; height:1px; background:var(--hairline); }
+
+  select{
+    width:100%; max-width:360px; background:var(--surface); color:var(--text);
+    border:1px solid var(--hairline); border-radius:10px; padding:11px 14px; font-family:inherit; font-size:13.5px;
+  }
+
+  .note{
+    background:var(--surface); border:1px solid var(--hairline); border-left:3px solid var(--brass);
+    border-radius:10px; padding:14px 16px; font-size:12px; color:var(--muted); line-height:1.6;
+    max-width:400px; text-align:left; margin-top:6px;
+  }
+  .note b{ color:var(--text); }
+
+  /* ---------- Hologram stage (4-way pyramid layout) ---------- */
+  #stage{
+    display:none;
+    position:fixed; inset:0; background:#000;
+    z-index:50;
+  }
+  #stage.active{ display:block; }
+
+  .holo-grid{
+    position:absolute; inset:0;
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+  }
+  .holo-cell{ position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .holo-cell video{ width:56%; height:56%; object-fit:contain; }
+
+  /* Each face points outward toward its pyramid edge */
+  .holo-cell.top{ transform:rotate(180deg); align-items:flex-end; }
+  .holo-cell.bottom{ align-items:flex-start; }
+  .holo-cell.left{ transform:rotate(90deg); }
+  .holo-cell.right{ transform:rotate(-90deg); }
+
+  #exitBtn{
+    position:absolute; top:16px; right:16px; z-index:60;
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.25);
+    background:rgba(0,0,0,0.5); color:#fff; font-size:16px; cursor:pointer;
+  }
+
+  #dimBtn{
+    position:absolute; top:16px; left:16px; z-index:60;
+    padding:8px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.25);
+    background:rgba(0,0,0,0.5); color:#fff; font-size:11.5px; font-weight:600; cursor:pointer;
+    letter-spacing:0.03em;
+  }
+
+  footer{ text-align:center; padding:16px; color:var(--muted); font-size:11px; }
+</style>
+</head>
+<body>
+
+<div id="setup">
+  <div class="eyebrow">Zaiqa · Hologram Pyramid Mode</div>
+  <h1>Turn any dish video into a floating hologram</h1>
+  <p class="sub">Pick a short rotating video of a dish. This screen will split it into four mirrored views — place a hologram pyramid on the center of your screen and the dish appears to float inside it.</p>
+
+  <label class="picker" id="pickerBox">
+    <input type="file" id="fileInput" accept="video/*" />
+    <div class="icon">📹</div>
+    <div class="label">Choose a video from this device</div>
+    <div class="hint">MP4 works best · 5–15 seconds · plain dark background</div>
+  </label>
+
+  <div class="divider">or try a sample</div>
+  <select id="sampleSelect">
+    <option value="">— pick a sample clip —</option>
+    <option value="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">Sample clip (flower, for testing the effect)</option>
+  </select>
+
+  <div class="note">
+    <b>Don't have a rotating dish video yet? —</b> Open <code>index.html</code>, tap a "Live 3D" dish so it auto-rotates, then screen-record it for 5–10 seconds. Or, if you scan dishes with Scaniverse/Polycam, most of those apps can export a turntable video directly — no screen recording needed.
+  </div>
+</div>
+
+<div id="stage">
+  <button id="exitBtn">✕</button>
+  <button id="dimBtn">🔆 Max brightness</button>
+  <div class="holo-grid">
+    <div class="holo-cell top"><video id="v1" muted loop playsinline></video></div>
+    <div class="holo-cell left"><video id="v2" muted loop playsinline></video></div>
+    <div class="holo-cell right"><video id="v3" muted loop playsinline></video></div>
+    <div class="holo-cell bottom"><video id="v4" muted loop playsinline></video></div>
+  </div>
+</div>
+
+<footer>Prototype note — this is the physical hologram-pyramid version. It plays a pre-recorded video, not a live interactive 3D model.</footer>
+
+<script>
+const setup = document.getElementById('setup');
+const stage = document.getElementById('stage');
+const fileInput = document.getElementById('fileInput');
+const pickerBox = document.getElementById('pickerBox');
+const sampleSelect = document.getElementById('sampleSelect');
+const videos = ['v1','v2','v3','v4'].map(id => document.getElementById(id));
+const exitBtn = document.getElementById('exitBtn');
+const dimBtn = document.getElementById('dimBtn');
+
+function startHologram(src){
+  videos.forEach(v => {
+    v.src = src;
+    v.play().catch(()=>{ /* will retry on user gesture already satisfied by click */ });
+  });
+  setup.style.display = 'none';
+  stage.classList.add('active');
+}
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const url = URL.createObjectURL(file);
+  startHologram(url);
+});
+
+sampleSelect.addEventListener('change', (e) => {
+  if(e.target.value) startHologram(e.target.value);
+});
+
+exitBtn.addEventListener('click', () => {
+  videos.forEach(v => { v.pause(); v.src=''; });
+  stage.classList.remove('active');
+  setup.style.display = 'flex';
+});
+
+let bright = false;
+dimBtn.addEventListener('click', () => {
+  bright = !bright;
+  document.body.style.filter = bright ? 'brightness(1.15) saturate(1.1)' : 'none';
+  dimBtn.textContent = bright ? '🔅 Normal brightness' : '🔆 Max brightness';
+});
+</script>
+</body>
+</html>
