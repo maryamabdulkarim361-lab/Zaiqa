@@ -1,14 +1,127 @@
 # 🍽️ Zaiqa — Live 3D & AR Digital Menu
 
-> **A next-generation digital restaurant menu that lets customers explore dishes in interactive 3D and preview them in their real environment using Augmented Reality.**
+<p align="center">
+  <strong>
+    A next-generation digital restaurant menu powered by 3D and Augmented Reality.
+  </strong>
+</p>
 
-🌐 **Live Demo:** https://technologicinnovations.ltd/zaiqa/
+<p align="center">
+  <a href="https://technologicinnovations.ltd/zaiqa/">
+    <img src="https://img.shields.io/badge/🌐_Live_Demo-Zaiqa-red?style=for-the-badge">
+  </a>
+</p>
 
 ---
 
-## 📖 Overview
+<p align="center">
+  <img src="docs/screenshots/hero.png" width="100%">
+</p>
 
-**Zaiqa** is a web-based digital restaurant menu designed to make the dining experience more interactive and informative.
+<p align="center">
+  <em>
+    Explore dishes in interactive 3D and preview them in your own space.
+  </em>
+</p>
+
+---
+
+## ✨ What is Zaiqa?
+
+Zaiqa transforms the traditional restaurant menu into an
+interactive 3D and AR experience.
+
+Customers scan a QR code at their table and instantly access
+the live digital menu without installing an application.
+
+
+## 🚀 Key Features
+
+<table>
+<tr>
+<td width="50%">
+
+### 🧊 Interactive 3D
+
+<p align="center">
+<img src="docs/screenshots/3d-viewer.jpeg" width="100%">
+</p>
+
+Rotate, zoom and inspect dishes directly in the browser.
+
+</td>
+
+<td width="50%">
+
+### 📱 Augmented Reality
+
+<p align="center">
+<img src="docs/screenshots/ar-preview.jpeg" width="100%">
+</p>
+
+<p align="center">
+<img src="docs/screenshots/ar-preview2.jpeg" width="100%">
+</p>
+
+Place supported dishes in your real environment.
+
+</td>
+</tr>
+</table>
+
+
+## 📱 Customer Experience
+
+### 01 — Scan
+
+<p align="center">
+<img src="docs/screenshots/qr-menu.jpeg" width="70%">
+</p>
+
+Scan the QR code at the restaurant table.
+
+### 02 — Browse
+
+<p align="center">
+<img src="docs/screenshots/menu.png" width="90%">
+</p>
+
+Browse categories, dishes, prices and descriptions.
+
+
+### 03 — View in Your Space
+
+<p align="center">
+<img src="docs/screenshots/ar-preview.png" width="70%">
+</p>
+
+On supported devices, preview the dish in your physical environment.
+
+## 🔐 Restaurant Admin Dashboard
+
+Zaiqa includes a dedicated administration system for restaurant staff.
+<p align="center">
+  <img src="docs/screenshots/admin-login.png" width="95%">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/admin-dashboard.png" width="95%">
+</p>
+
+### Staff can manage
+
+- Categories
+- Dishes
+- Prices
+- Descriptions
+- Images
+- 3D models
+- AR models
+- Staff accounts
+
+<p align="center">
+  <img src="docs/screenshots/dish-management.png" width="95%">
+</p>
 
 Instead of relying only on traditional food photographs, Zaiqa allows customers to:
 
